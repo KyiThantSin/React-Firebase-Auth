@@ -1,13 +1,27 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap');
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.wrapper{
+  @apply bg-background text-primary font-body text-xl;
+}
+.container{
+  @apply flex justify-center items-center p-16 flex-col ml-10;             
+}
+.formStyle{
+  @apply grid grid-cols-1 space-y-3 w-96 p-9;            
+}
+.inputStyle{
+  @apply h-12 rounded-lg p-3 border-lightgrey border-2;
+}
+.btn{
+  @apply text-white bg-secondary rounded-lg p-2 w-28;
+}
+.alert{
+  @apply text-alert;               
+}
+.iconWrapper{
+  @apply absolute top-96 left-2/4 ml-14;
 }

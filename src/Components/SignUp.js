@@ -56,7 +56,7 @@ const SignUp = () => {
       )
         .then((userCredential) => {
           //console.log(userCredential);
-          toast('🦄 Successfully Created!', {
+          toast("🦄 Successfully Created!", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -65,12 +65,12 @@ const SignUp = () => {
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
-          navigate('/profile')
+          });
+          navigate("/profile");
         })
         .catch((error) => {
           console.log(error);
-          toast('Oops..something wrong :( ', {
+          toast("Oops..something wrong :( ", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -79,7 +79,7 @@ const SignUp = () => {
             draggable: true,
             progress: undefined,
             theme: "colored",
-            });
+          });
         });
     }
   };
@@ -139,7 +139,11 @@ const SignUp = () => {
             onChange={onChangeHandler}
           />
           <span className="iconWrapper" onClick={() => setStatusPw(!statusPw)}>
-            {statusPw ? <IoEyeOutline /> : <RxEyeClosed />}
+            {statusPw ? (
+              <IoEyeOutline color="#000000" />
+            ) : (
+              <RxEyeClosed color="#000000" />
+            )}
           </span>
         </div>
         {error && <b className="alert">{error}</b>}

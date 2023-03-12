@@ -1,10 +1,13 @@
 import { MdOutlineDarkMode } from "react-icons/md";
+import { BsSun } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { Auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ContextValue } from "../App";
 
 const NavLink = () => {
   const location = useLocation();
@@ -12,7 +15,7 @@ const NavLink = () => {
   const logOut = () => {
     signOut(Auth)
       .then(() => {
-        toast('🦄 Successfully logged out!', {
+        toast("🦄 Successfully logged out!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -21,8 +24,8 @@ const NavLink = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
-          navigate('/')
+        });
+        navigate("/");
       })
       .catch((e) => {
         console.log("signOut:", e);
@@ -37,13 +40,18 @@ const NavLink = () => {
   }
 };
 
-const NavBar = () => {
+const NavBar = ({ themeController }) => {
+  const { currentUser, theme } = useContext(ContextValue);
   return (
     <>
       <div className="navbar-container">
         <div>Logo</div>
         <div className="navbar-inner">
-          <MdOutlineDarkMode size={30} />
+          {theme ? (
+            <BsSun size={30} onClick={themeController} />
+          ) : (
+            <MdOutlineDarkMode size={30} onClick={themeController} />
+          )}
           <div>
             <button className="navbar-button">
               <NavLink />

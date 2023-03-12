@@ -33,36 +33,54 @@ const SignIn = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     //console.log(initialState);
-    if(initialState.email && initialState.password){
-      signInWithEmailAndPassword(Auth,initialState.email,initialState.password).then((userCredential)=>{
-        //console.log(userCredential)
-        toast('🦄 Login Success!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+    if (initialState.email && initialState.password) {
+      signInWithEmailAndPassword(
+        Auth,
+        initialState.email,
+        initialState.password
+      )
+        .then((userCredential) => {
+          //console.log(userCredential)
+          toast("🦄 Login Success!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
           });
-        navigate('/profile')
-      }).catch((e)=>{
-        console.log("sign-In:",e)
-        toast('Oops..something wrong :( ', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          });
-      })
+          navigate("/profile");
+        })
+        .catch((e) => {
+          console.log("sign-In:", e);
+          if (e.code === "auth/user-not-found") {
+            toast("This email is not registered", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          } else {
+            toast("Oops..something wrong :( ", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
+        });
     }
   };
-
   return (
     <div className="container">
       <div className="flex justify-start flex-col">
@@ -102,15 +120,27 @@ const SignIn = () => {
             onChange={onChangeHandler}
           />
           <span className="iconWrapper" onClick={() => setStatus(!status)}>
-            {status ? <IoEyeOutline /> : <RxEyeClosed />}
+            {status ? (
+              <IoEyeOutline color="#000000" />
+            ) : (
+              <RxEyeClosed color="#000000" />
+            )}
           </span>
         </div>
+        <b
+          className="text-sm flex justify-end"
+          onClick={() => navigate("/resetPwd")}>
+          Forgot password?
+        </b>
         <button className="btn" type="submit" disabled={error}>
           Sign In
         </button>
       </form>
       <b className="text-md">
-        Don't have an account? <span className="text-button uppercase"><Link to={'/signUp'}>SignUp</Link></span>{" "}
+        Don't have an account?{" "}
+        <span className="text-button uppercase">
+          <Link to={"/signUp"}>SignUp</Link>
+        </span>{" "}
       </b>
       <ToastContainer
         position="top-right"

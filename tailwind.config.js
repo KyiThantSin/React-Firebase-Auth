@@ -10,7 +10,8 @@ module.exports = {
         secondary:'#0097F3',
         background:'#F4F4F4',
         alert:'#C70039',
-        lightgrey:"#DCDCDC",
+        lightgrey:'#F0F0F0',
+        button:'#FDA321'
       },
       fontFamily:{
         body:['Josefin Sans']

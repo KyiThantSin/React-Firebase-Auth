@@ -17,11 +17,11 @@
   @apply h-12 rounded-lg p-3 border-lightgrey border-2;
 }
 .btn{
-  @apply text-white bg-secondary rounded-lg p-2 w-28;
+  @apply text-white bg-button rounded-lg p-2 w-28;
 }
 .alert{
   @apply text-alert;               
 }
 .iconWrapper{
-  @apply absolute top-96 left-2/4 ml-14;
+  @apply absolute inset-y-0 right-0 flex items-center justify-end pr-3 bg-white rounded-tr-md rounded-br-md p-3 border-lightgrey border-t-2 border-b-2 border-r-2 border-l-2;
 }

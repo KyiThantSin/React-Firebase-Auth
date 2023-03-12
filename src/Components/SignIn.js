@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { RxEyeClosed } from "react-icons/rx";
 import { IoEyeOutline } from "react-icons/io5";
-const SignUp = () => {
+import { Link } from "react-router-dom";
+
+const SignIn = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(false);
-  const [statusPw, setStatusPw] = useState(false);
   const [initialState, setInitialState] = useState({
     name: "",
     email: "",
     password: "",
-    confirmPassword:"",
   });
 
   // reduce the number of re-renders
@@ -25,16 +25,6 @@ const SignUp = () => {
     [initialState]
   );
 
-  useEffect(() => {
-    if (initialState.password !== initialState.confirmPassword) {
-      setError("Password does not match!");
-    } else if (initialState.confirmPassword == null) {
-      setError("Please fill in required fields");
-    } else {
-      setError(null);
-    }
-  }, [initialState]);
-
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(initialState);
@@ -42,16 +32,16 @@ const SignUp = () => {
 
   return (
     <div className="container">
-      <h2 className="text-4xl">Create Account</h2>
+      <div className="flex justify-start flex-col">
+        <h2 className="text-4xl text-button">Login</h2>
+        <h2 className="text-xl">Please sign in to continue.</h2>
+      </div>
       <form className="formStyle">
-        <label htmlFor="name">
-          User Name <span className="alert">*</span>
-        </label>
+        <label htmlFor="name">User Name</label>
         <input
           type="text"
           id="name"
           name="name"
-          required
           className="inputStyle"
           onChange={onChangeHandler}
         />
@@ -78,32 +68,18 @@ const SignUp = () => {
             required
             onChange={onChangeHandler}
           />
-          <span className="iconWrapper" onClick={()=>setStatus(!status)}>
+          <span className="iconWrapper" onClick={() => setStatus(!status)}>
             {status ? <IoEyeOutline /> : <RxEyeClosed />}
           </span>
         </div>
-        <label htmlFor="confirmPassword">
-          Confirm Password <span className="alert">*</span>
-        </label>
-        <div className="relative">
-          <input
-            type={statusPw ? "text" : "password"}
-            id="confirmPassword"
-            name="confirmPassword"
-            className="inputStyle"
-            required
-            onChange={onChangeHandler}
-          />
-          <span className="iconWrapper" onClick={()=>setStatusPw(!statusPw)}>
-            {statusPw ? <IoEyeOutline /> : <RxEyeClosed />}
-          </span>
-        </div>
-        {error && <b className="alert">{error}</b>}
         <button className="btn" onClick={onSubmit} disabled={error}>
-          Sign Up
+          Sign In
         </button>
       </form>
+      <b className="text-md">
+        Don't have an account? <span className="text-button uppercase"><Link to={'/signUp'}>SignUp</Link></span>{" "}
+      </b>
     </div>
   );
 };
-export default SignUp;
+export default SignIn;

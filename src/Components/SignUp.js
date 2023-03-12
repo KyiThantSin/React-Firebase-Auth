@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { RxEyeClosed } from "react-icons/rx";
 import { IoEyeOutline } from "react-icons/io5";
+import { Auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 const SignUp = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(false);
@@ -19,25 +22,37 @@ const SignUp = () => {
         ...initialState,
         [e.target.name]: e.target.value,
       });
-
-      console.log(initialState);
+      //console.log(initialState);
     },
     [initialState]
   );
 
   useEffect(() => {
-    if (initialState.password !== initialState.confirmPassword) {
-      setError("Password does not match!");
-    } else if (initialState.confirmPassword == null) {
-      setError("Please fill in required fields");
-    } else {
-      setError(null);
-    }
-  }, [initialState]);
+   if (initialState.confirmPassword || initialState.password) {
+      if(initialState?.confirmPassword.length < 6 || initialState?.password.length < 6){
+       setError("Password must be at least 6 characters long")
+      }else if(initialState.password !== initialState.confirmPassword){
+        setError("Password does not match!");
+      }
+      else{
+        setError(null)
+      }
+    } 
+    
+  }, [initialState.confirmPassword,initialState.password]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(initialState);
+    //console.log(initialState);
+    if(initialState){
+      createUserWithEmailAndPassword(Auth, initialState.email, initialState.password)
+        .then((userCredential) => {
+        console.log(userCredential)
+  })
+  .catch((error) => {
+    console.log(error)
+  });
+    }
   };
 
   return (

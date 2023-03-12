@@ -55,7 +55,7 @@ const SignUp = () => {
         initialState.password
       )
         .then((userCredential) => {
-          console.log(userCredential);
+          //console.log(userCredential);
           toast('🦄 Successfully Created!', {
             position: "top-right",
             autoClose: 5000,
@@ -70,6 +70,16 @@ const SignUp = () => {
         })
         .catch((error) => {
           console.log(error);
+          toast('Oops..something wrong :( ', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
         });
     }
   };
@@ -77,7 +87,7 @@ const SignUp = () => {
   return (
     <div className="container">
       <h2 className="text-4xl">Create Account</h2>
-      <form className="formStyle">
+      <form className="formStyle" onSubmit={onSubmit}>
         <label htmlFor="name">
           User Name <span className="alert">*</span>
         </label>
@@ -133,7 +143,7 @@ const SignUp = () => {
           </span>
         </div>
         {error && <b className="alert">{error}</b>}
-        <button className="btn" onClick={onSubmit} disabled={error}>
+        <button className="btn" type="submit" disabled={error}>
           Sign Up
         </button>
       </form>

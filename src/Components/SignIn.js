@@ -2,8 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 import { RxEyeClosed } from "react-icons/rx";
 import { IoEyeOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { Auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(false);
   const [initialState, setInitialState] = useState({
@@ -19,15 +25,42 @@ const SignIn = () => {
         ...initialState,
         [e.target.name]: e.target.value,
       });
-
-      console.log(initialState);
+      //console.log(initialState);
     },
     [initialState]
   );
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(initialState);
+    //console.log(initialState);
+    if(initialState.email && initialState.password){
+      signInWithEmailAndPassword(Auth,initialState.email,initialState.password).then((userCredential)=>{
+        //console.log(userCredential)
+        toast('🦄 Login Success!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+        navigate('/profile')
+      }).catch((e)=>{
+        console.log("sign-In:",e)
+        toast('Oops..something wrong :( ', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+      })
+    }
   };
 
   return (
@@ -36,7 +69,7 @@ const SignIn = () => {
         <h2 className="text-4xl text-button">Login</h2>
         <h2 className="text-xl">Please sign in to continue.</h2>
       </div>
-      <form className="formStyle">
+      <form className="formStyle" onSubmit={onSubmit}>
         <label htmlFor="name">User Name</label>
         <input
           type="text"
@@ -72,13 +105,23 @@ const SignIn = () => {
             {status ? <IoEyeOutline /> : <RxEyeClosed />}
           </span>
         </div>
-        <button className="btn" onClick={onSubmit} disabled={error}>
+        <button className="btn" type="submit" disabled={error}>
           Sign In
         </button>
       </form>
       <b className="text-md">
         Don't have an account? <span className="text-button uppercase"><Link to={'/signUp'}>SignUp</Link></span>{" "}
       </b>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        theme="light"
+      />
     </div>
   );
 };

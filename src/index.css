@@ -25,3 +25,12 @@
 .iconWrapper{
   @apply absolute inset-y-0 right-0 flex items-center justify-end pr-3 bg-white rounded-tr-md rounded-br-md p-3 border-lightgrey border-t-2 border-b-2 border-r-2 border-l-2;
 }
+.navbar-container{
+  @apply flex flex-row justify-between p-6 text-2xl;
+}
+.navbar-inner{
+  @apply flex flex-row gap-3 text-sm;
+}
+.navbar-button{
+  @apply border-2 rounded-lg bg-button text-white p-2;
+}

@@ -3,8 +3,12 @@ import { RxEyeClosed } from "react-icons/rx";
 import { IoEyeOutline } from "react-icons/io5";
 import { Auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(false);
   const [statusPw, setStatusPw] = useState(false);
@@ -12,7 +16,7 @@ const SignUp = () => {
     name: "",
     email: "",
     password: "",
-    confirmPassword:"",
+    confirmPassword: "",
   });
 
   // reduce the number of re-renders
@@ -22,36 +26,51 @@ const SignUp = () => {
         ...initialState,
         [e.target.name]: e.target.value,
       });
-      //console.log(initialState);
     },
     [initialState]
   );
 
   useEffect(() => {
-   if (initialState.confirmPassword || initialState.password) {
-      if(initialState?.confirmPassword.length < 6 || initialState?.password.length < 6){
-       setError("Password must be at least 6 characters long")
-      }else if(initialState.password !== initialState.confirmPassword){
+    if (initialState.confirmPassword || initialState.password) {
+      if (
+        initialState?.confirmPassword.length < 6 ||
+        initialState?.password.length < 6
+      ) {
+        setError("Password must be at least 6 characters long");
+      } else if (initialState.password !== initialState.confirmPassword) {
         setError("Password does not match!");
+      } else {
+        setError(null);
       }
-      else{
-        setError(null)
-      }
-    } 
-    
-  }, [initialState.confirmPassword,initialState.password]);
+    }
+  }, [initialState.confirmPassword, initialState.password]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     //console.log(initialState);
-    if(initialState){
-      createUserWithEmailAndPassword(Auth, initialState.email, initialState.password)
+    if (initialState) {
+      createUserWithEmailAndPassword(
+        Auth,
+        initialState.email,
+        initialState.password
+      )
         .then((userCredential) => {
-        console.log(userCredential)
-  })
-  .catch((error) => {
-    console.log(error)
-  });
+          console.log(userCredential);
+          toast('🦄 Successfully Created!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+          navigate('/profile')
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -93,7 +112,7 @@ const SignUp = () => {
             required
             onChange={onChangeHandler}
           />
-          <span className="iconWrapper" onClick={()=>setStatus(!status)}>
+          <span className="iconWrapper" onClick={() => setStatus(!status)}>
             {status ? <IoEyeOutline /> : <RxEyeClosed />}
           </span>
         </div>
@@ -109,7 +128,7 @@ const SignUp = () => {
             required
             onChange={onChangeHandler}
           />
-          <span className="iconWrapper" onClick={()=>setStatusPw(!statusPw)}>
+          <span className="iconWrapper" onClick={() => setStatusPw(!statusPw)}>
             {statusPw ? <IoEyeOutline /> : <RxEyeClosed />}
           </span>
         </div>
@@ -118,6 +137,16 @@ const SignUp = () => {
           Sign Up
         </button>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        theme="light"
+      />
     </div>
   );
 };

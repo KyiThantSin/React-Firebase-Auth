@@ -34,3 +34,9 @@
 .navbar-button{
   @apply border-2 rounded-lg bg-button text-white p-2;
 }
+.profile-container{
+  @apply flex flex-col gap-8 text-2xl mx-auto my-auto justify-center items-center mt-20;
+}
+.profile{
+  @apply w-96 h-60;
+}

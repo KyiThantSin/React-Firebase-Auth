@@ -619,8 +619,16 @@ video {
   justify-content: flex-end;
 }
 
+.justify-center{
+  justify-content: center;
+}
+
 .gap-3{
   gap: 0.75rem;
+}
+
+.whitespace-nowrap{
+  white-space: nowrap;
 }
 
 .text-2xl{
@@ -685,12 +693,23 @@ video {
 }
 
 .container{
-  margin-left: 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 4rem;
+}
+
+@media (min-width: 768px){
+  .container{
+    margin-left: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px){
+  .container{
+    margin-left: 2.5rem;
+  }
 }
 
 .formStyle{
@@ -706,7 +725,7 @@ video {
 }
 
 .formStyle{
-  padding: 2.25rem;
+  padding: 2rem;
 }
 
 .inputStyle{
@@ -753,6 +772,7 @@ video {
   top: 0px;
   bottom: 0px;
   right: 0px;
+  left: 0px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -815,4 +835,32 @@ video {
 .profile{
   height: 15rem;
   width: 24rem;
+}
+
+.google-btn{
+  display: flex;
+  width: 18rem;
+  flex-direction: row;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(253 163 33 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  padding: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(41 41 41 / var(--tw-text-opacity));
+}
+
+.google-btn-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+}
+
+.hover\:underline:hover{
+  text-decoration-line: underline;
 }

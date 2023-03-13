@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { RxEyeClosed } from "react-icons/rx";
 import { IoEyeOutline } from "react-icons/io5";
+import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { Auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { Auth, provider } from "../firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +14,6 @@ const SignIn = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(false);
   const [initialState, setInitialState] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -81,21 +81,32 @@ const SignIn = () => {
         });
     }
   };
+  const googleSignInHandler = async () => {
+    await signInWithPopup(Auth, provider)
+      .then((result) => {
+        //console.log(result)
+        const email = result.user.email;
+        localStorage.setItem("email:", email);
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="container">
       <div className="flex justify-start flex-col">
         <h2 className="text-4xl text-button">Login</h2>
         <h2 className="text-xl">Please sign in to continue.</h2>
       </div>
+      <div className="google-btn-container">
+        <button className="google-btn" onClick={() => googleSignInHandler()}>
+          <FcGoogle size={30} />
+          Sign in with Google
+        </button>
+        <b className="flex justify-center">Or</b>
+      </div>
       <form className="formStyle" onSubmit={onSubmit}>
-        <label htmlFor="name">User Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          className="inputStyle"
-          onChange={onChangeHandler}
-        />
         <label htmlFor="email">
           Email <span className="alert">*</span>
         </label>
@@ -136,9 +147,9 @@ const SignIn = () => {
           Sign In
         </button>
       </form>
-      <b className="text-md">
+      <b className="text-md whitespace-nowrap">
         Don't have an account?{" "}
-        <span className="text-button uppercase">
+        <span className="text-button uppercase hover:underline">
           <Link to={"/signUp"}>SignUp</Link>
         </span>{" "}
       </b>

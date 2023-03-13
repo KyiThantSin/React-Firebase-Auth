@@ -11,10 +11,10 @@
   @apply bg-slate-700 text-white font-body text-xl lg:pb-36;
 }
 .container{
-  @apply flex justify-center items-center p-16 flex-col ml-10;             
+  @apply flex justify-center items-center p-16 flex-col lg:ml-10 md:ml-10 ;             
 }
 .formStyle{
-  @apply grid grid-cols-1 space-y-3 w-96 p-9;            
+  @apply grid grid-cols-1 space-y-3 w-96 p-8;            
 }
 .inputStyle{
   @apply h-12 rounded-lg p-3 border-lightgrey border-2 text-black;
@@ -29,7 +29,7 @@
   @apply text-alert;               
 }
 .iconWrapper{
-  @apply absolute inset-y-0 right-0 flex items-center justify-end pr-3 bg-white rounded-tr-md rounded-br-md p-3 border-lightgrey border-t-2 border-b-2 border-r-2 border-l-2;
+  @apply absolute inset-y-0 right-0 left-0 flex items-center justify-end pr-3 bg-white rounded-tr-md rounded-br-md p-3 border-lightgrey border-t-2 border-b-2 border-r-2 border-l-2;
 }
 .navbar-container{
   @apply flex flex-row justify-between p-6 text-2xl;
@@ -45,4 +45,10 @@
 }
 .profile{
   @apply w-96 h-60;
+}
+.google-btn{
+  @apply text-primary flex flex-row gap-4 bg-white border-2 border-button rounded-lg p-3 w-72;
+}
+.google-btn-container{
+  @apply gap-3 flex flex-col justify-center p-5;
 }

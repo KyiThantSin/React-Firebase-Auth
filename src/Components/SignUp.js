@@ -86,7 +86,7 @@ const SignUp = () => {
 
   return (
     <div className="container">
-      <h2 className="text-4xl">Create Account</h2>
+      <h2 className="text-4xl whitespace-nowrap">Create Account</h2>
       <form className="formStyle" onSubmit={onSubmit}>
         <label htmlFor="name">
           User Name <span className="alert">*</span>

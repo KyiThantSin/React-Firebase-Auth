@@ -27,7 +27,7 @@ function App() {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [Auth]);
 
   const themeController = () => {
     setTheme(!theme);

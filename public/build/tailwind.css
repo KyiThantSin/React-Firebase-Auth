@@ -730,6 +730,7 @@ video {
 
 .inputStyle{
   height: 3rem;
+  width: 20rem;
   border-radius: 0.5rem;
   border-width: 2px;
   --tw-border-opacity: 1;
@@ -769,19 +770,18 @@ video {
 
 .iconWrapper{
   position: absolute;
-  top: 0px;
-  bottom: 0px;
+  top: 0.25rem;
+  bottom: 0.25rem;
   right: 0px;
-  left: 0px;
+  left: 75%;
+  z-index: 0;
   display: flex;
+  width: 5rem;
   align-items: center;
   justify-content: flex-end;
   border-top-right-radius: 0.375rem;
   border-bottom-right-radius: 0.375rem;
-  border-top-width: 2px;
-  border-bottom-width: 2px;
   border-right-width: 2px;
-  border-left-width: 2px;
   --tw-border-opacity: 1;
   border-color: rgb(240 240 240 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;

@@ -34,11 +34,13 @@ const SignUp = () => {
     if (initialState.confirmPassword || initialState.password) {
       if (
         initialState?.confirmPassword.length < 6 ||
-        initialState?.password.length < 6
+        initialState?.password.length < 6 || initialState.password?.includes(" ")
       ) {
-        setError("Password must be at least 6 characters long");
+        setError("Password must be at least 6 characters long and not include space.");
       } else if (initialState.password !== initialState.confirmPassword) {
         setError("Password does not match!");
+      } else if (initialState.password.length > 12) {
+        setError("Password must be at most 12 characters long");
       } else {
         setError(null);
       }
@@ -123,7 +125,11 @@ const SignUp = () => {
             onChange={onChangeHandler}
           />
           <span className="iconWrapper" onClick={() => setStatus(!status)}>
-            {status ? <IoEyeOutline /> : <RxEyeClosed />}
+            {status ? (
+              <IoEyeOutline color="#000000" />
+            ) : (
+              <RxEyeClosed color="#000000" />
+            )}
           </span>
         </div>
         <label htmlFor="confirmPassword">

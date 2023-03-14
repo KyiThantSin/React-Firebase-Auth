@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 const SignUp = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
   const [status, setStatus] = useState(false);
   const [statusPw, setStatusPw] = useState(false);
   const [initialState, setInitialState] = useState({
@@ -29,20 +30,19 @@ const SignUp = () => {
     },
     [initialState]
   );
-
   useEffect(() => {
     if (initialState.confirmPassword || initialState.password) {
-      if (
-        initialState?.confirmPassword.length < 6 ||
+      if(
+        initialState.password &&
         initialState?.password.length < 6 || initialState.password?.includes(" ")
       ) {
         setError("Password must be at least 6 characters long and not include space.");
-      } else if (initialState.password !== initialState.confirmPassword) {
+      } else if (initialState.confirmPassword && initialState.password !== initialState.confirmPassword) {
         setError("Password does not match!");
-      } else if (initialState.password.length > 12) {
+      } else if ( initialState.password && initialState.password.length > 12) {
         setError("Password must be at most 12 characters long");
       } else {
-        setError(null);
+        setError("");
       }
     }
   }, [initialState.confirmPassword, initialState.password]);
@@ -85,6 +85,15 @@ const SignUp = () => {
         });
     }
   };
+    //validate email
+    useEffect(() => {
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+      if (initialState.email && !emailRegex.test(initialState.email)) {
+        setEmailError("Invalid email address");
+      } else {
+        setEmailError("");
+      }
+    }, [initialState.email]);
 
   return (
     <div className="container">
@@ -112,6 +121,7 @@ const SignUp = () => {
           className="inputStyle"
           onChange={onChangeHandler}
         />
+        {emailError && <b className="alert">{emailError}</b>}
         <label htmlFor="password">
           Password <span className="alert">*</span>
         </label>
